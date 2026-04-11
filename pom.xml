@@ -26,6 +26,7 @@
 		</plugins>
 	</build>
 	
+	
 	<dependencies>
 		<!-- Source:
 		https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
