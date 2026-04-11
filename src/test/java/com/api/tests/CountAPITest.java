@@ -14,7 +14,7 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 public class CountAPITest {
 	@Test
 	public void verifyCountAPIResponse() {
-		
+		System.out.println("QA environment");
 		given()
 		.baseUri(ConfigManager.getProperty("BASE_URI"))
 		.and()
@@ -38,7 +38,7 @@ public class CountAPITest {
 		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response_schema/CountAPISchema.json"));
 			
 	}
-	
+	@Test
 	public void countAPIRequest_MissingAuthToken() {
 		given()
 		.baseUri(ConfigManager.getProperty("BASE_URI"))
