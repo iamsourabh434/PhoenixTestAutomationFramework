@@ -19,6 +19,7 @@ public class ConfigManager {
 		// operation of loading the property file in the memory
 		// static block executed only once during class loading time
 		env = System.getProperty("env", "qa");
+		System.out.println("Environment is "+ env);
 		env = env.toLowerCase().trim();
 		switch (env) {
 

@@ -43,8 +43,7 @@ public class AuthTokenProvider {
 		.body("message",equalTo("Success"))
 		.extract()
 		.body()
-		.jsonPath()
-		.get("data.token");
+		.jsonPath().get("data.token");
 		
 
 	return token;
