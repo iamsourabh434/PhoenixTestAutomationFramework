@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import com.api.constant.Roles;
 import com.api.utils.AuthTokenProvider;
 import com.api.utils.ConfigManager;
+import com.api.utils.SpecUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
@@ -19,16 +20,12 @@ public class MasterAPITest {
 	public void masterAPITest() {
 		
 		given()
-		.baseUri(ConfigManager.getProperty("BASE_URI"))
-		.header("Authorization",AuthTokenProvider.getToken(Roles.FD))
-		.contentType("")
-		.log().all()
+		.spec(SpecUtil.requestSpecWithAuth(Roles.FD))
 		.when()
 		.post("master")
 		.then()
 		.log().all()
-		.statusCode(200)
-		.time(lessThan(1200L))
+		.spec(SpecUtil.responseSpec_ok())
 		.body("message",equalTo("Success"))
 		.body("data",notNullValue())
 		.body("data", hasKey("mst_oem"))
@@ -46,15 +43,13 @@ public class MasterAPITest {
 	@Test
 	public void invalidTokenMasterAPI() {
 		given()
-		.baseUri(ConfigManager.getProperty("BASE_URI"))
-		.header("Authorization","")
-		.contentType("")
+
+		.spec(SpecUtil.requestSpec())
 		.log().all()
 		.when()
 		.post("master")
 		.then()
-		.log().all()
-		.statusCode(401);
+		.spec(SpecUtil.responseSpec_text(401));
 	}
 
 }

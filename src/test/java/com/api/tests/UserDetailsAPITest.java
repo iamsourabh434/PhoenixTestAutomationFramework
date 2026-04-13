@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import static com.api.constant.Roles.*;
 import com.api.utils.AuthTokenProvider;
+import com.api.utils.SpecUtil;
 
 import static com.api.utils.ConfigManager.*;
 
@@ -25,19 +26,11 @@ public class UserDetailsAPITest {
 		
 		Header authHeader = new Header("Authorization",AuthTokenProvider.getToken(FD));
 		given()
-			.baseUri(getProperty("BASE_URI"))
-			.and()
-			.header(authHeader)
-			.contentType(ContentType.JSON)
-			.log().method()
-			.log().headers()
-			.log().uri()
+			.spec(SpecUtil.requestSpecWithAuth(FD))
 		.when()
 			.get("userdetails")
 		.then()
-		.log().all()
-		.statusCode(200)
-		.time(lessThan(1500L))
+		.spec(SpecUtil.responseSpec_ok())
 		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response_schema/UserDetailsResponseSchema.json"));
 			
 	}

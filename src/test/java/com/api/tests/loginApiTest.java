@@ -9,9 +9,8 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 
 import com.api.pojo.UserCredentials;
-import static com.api.utils.ConfigManager.*;
+import com.api.utils.SpecUtil;
 
-import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class loginApiTest {
@@ -23,21 +22,11 @@ public class loginApiTest {
 		UserCredentials userCredentials = new UserCredentials("iamfd", "password");
 		
 		given()
-			.baseUri(getProperty("BASE_URI"))
-		.and()
-			.contentType(ContentType.JSON)
-			.accept(ContentType.JSON)
-			.body(userCredentials)
-			.log().uri()
-			.log().method()
-			.log().headers()
-			.log().body()
+			.spec(SpecUtil.requestSpec(userCredentials))
 		.when()
 			.post("login")
 		.then()
-			.log().all()
-			.statusCode(200)
-			.time(lessThan(2000L))
+			.spec(SpecUtil.responseSpec_ok())
 			.body("message", equalTo("Success"))
 			.and()
 			.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response_schema/LoginResponseSchema.json"));
