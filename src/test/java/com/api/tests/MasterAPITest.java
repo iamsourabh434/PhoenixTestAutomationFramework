@@ -15,7 +15,7 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class MasterAPITest {
 	
-	@Test
+	@Test(description="verify if Master API is giving correct response",groups = {"api","regression","smoke"})
 	
 	public void masterAPITest() {
 		
@@ -40,7 +40,7 @@ public class MasterAPITest {
 		
 		
 	}
-	@Test
+	@Test(description="verify if Master API is giving correct status code for invalid token",groups = {"api","negative","regression","smoke"})
 	public void invalidTokenMasterAPI() {
 		given()
 

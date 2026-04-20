@@ -13,7 +13,8 @@ import com.api.utils.SpecUtil;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class CountAPITest {
-	@Test
+	
+	@Test(description="verify if Count api is giving correct response",groups = {"api","regression","smoke"})
 	public void verifyCountAPIResponse() {
 		
 		given()
@@ -32,7 +33,7 @@ public class CountAPITest {
 		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response_schema/CountAPISchema.json"));
 			
 	}
-	@Test
+	@Test(description="verify if count API is giving correct status code for invalid token",groups = {"api","negative","regression","smoke"})
 	public void countAPIRequest_MissingAuthToken() {
 		given()
 		.spec(SpecUtil.requestSpec())

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constant.Model;
@@ -28,19 +29,26 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class CreateJobAPITest {
 	
-	@Test
+	private CreateJobPayload creaetJobPayload;
+	
+	@BeforeMethod(description="Creating createJob api payload")
+	public void setup() {
+	
+	// created the createJobpayload Object
+			Customer customer = new Customer("sourabh", "kurhade", "7740778482", "", "sourabhskn23@gmail.com", "");
+			CustomerAddress customerAddress = new CustomerAddress("701", "Avito", "BakerSt", "pizzahut", "pune", "411014", "India", "MH");
+			CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "19939644254628", "19939644254628", "19939644254628", DateTimeUtil.getTimeWithDaysAgo(5), 
+					Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
+			Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
+			List<Problems> problemList = new ArrayList<Problems>();
+			problemList.add(problems);
+			
+			creaetJobPayload = new CreateJobPayload(ServiceLocation.Service_Location_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
+	}
+	
+	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","smoke"})
 	public void createJobAPITest(){
 		
-		// created the createJobpayload Object
-		Customer customer = new Customer("sourabh", "kurhade", "7740778482", "", "sourabhskn23@gmail.com", "");
-		CustomerAddress customerAddress = new CustomerAddress("701", "Avito", "BakerSt", "pizzahut", "pune", "411014", "India", "MH");
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "19939644254628", "19939644254628", "19939644254628", DateTimeUtil.getTimeWithDaysAgo(5), 
-				Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
-		Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
-		List<Problems> problemList = new ArrayList<Problems>();
-		problemList.add(problems);
-		
-		CreateJobPayload creaetJobPayload = new CreateJobPayload(ServiceLocation.Service_Location_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
 		
 		given()
 		.spec(SpecUtil.requestSpecWithAuth(Roles.FD ,creaetJobPayload))

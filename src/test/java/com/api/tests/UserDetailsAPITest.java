@@ -20,7 +20,7 @@ import static io.restassured.RestAssured.*;
 
 public class UserDetailsAPITest {
 	
-	@Test
+	@Test(description="verify if user details API response are shown correctly",groups = {"api","regression","smoke"})
 	public void userDetailsAPITest() throws IOException {
 		
 		
