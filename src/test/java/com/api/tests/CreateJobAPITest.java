@@ -8,7 +8,14 @@ import java.util.List;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
+import com.api.constant.Model;
+import com.api.constant.OEM;
+import com.api.constant.Platform;
+import com.api.constant.Problem;
+import com.api.constant.Product;
 import com.api.constant.Roles;
+import com.api.constant.ServiceLocation;
+import com.api.constant.Warranty_status;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
@@ -27,12 +34,13 @@ public class CreateJobAPITest {
 		// created the createJobpayload Object
 		Customer customer = new Customer("sourabh", "kurhade", "7740778482", "", "sourabhskn23@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("701", "Avito", "BakerSt", "pizzahut", "pune", "411014", "India", "MH");
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "19939644232628", "19939644232628", "19939644232628", DateTimeUtil.getTimeWithDaysAgo(5), "1", "1");
-		Problems problems = new Problems(1, "Over Heating");
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "19939644254628", "19939644254628", "19939644254628", DateTimeUtil.getTimeWithDaysAgo(5), 
+				Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
+		Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
 		List<Problems> problemList = new ArrayList<Problems>();
 		problemList.add(problems);
 		
-		CreateJobPayload creaetJobPayload = new CreateJobPayload(1, 2, 1, 1, customer, customerAddress, customerProduct, problemList);
+		CreateJobPayload creaetJobPayload = new CreateJobPayload(ServiceLocation.Service_Location_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
 		
 		given()
 		.spec(SpecUtil.requestSpecWithAuth(Roles.FD ,creaetJobPayload))
