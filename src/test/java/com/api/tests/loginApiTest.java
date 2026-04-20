@@ -6,20 +6,27 @@ import static org.hamcrest.Matchers.lessThan;
 
 import java.io.IOException;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.api.pojo.UserCredentials;
+import com.api.request.model.UserCredentials;
 import com.api.utils.SpecUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class loginApiTest {
 	
-	@Test
+	private UserCredentials userCredentials;
+	
+	@BeforeMethod(description="create payload for the login API")
+	public void setup() {
+		userCredentials = new UserCredentials("iamfd", "password");
+	}
+	
+	
+	@Test(description ="Verify login API is working for user FD", groups= {"api","regression","smoke"})
 	public void loginTest() throws IOException {
 		
-		
-		UserCredentials userCredentials = new UserCredentials("iamfd", "password");
 		
 		given()
 			.spec(SpecUtil.requestSpec(userCredentials))
