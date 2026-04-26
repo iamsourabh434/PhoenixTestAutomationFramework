@@ -17,14 +17,15 @@ public class FakerDataGenerator {
 	private static Faker faker = new Faker(new Locale("en-IND"));
 	private final static String COUNTRY = "India";
 	private final static Random RANDOM = new Random();
-	private final static int MST_SERVICE_LOCATION_ID =0;
-	private final static int MST_PLATFORM_ID =2;
-	private final static int MST_WARRANTY_STATUS_ID =1;
-	private final static int MST_OEM_ID =1;
-	private final static int PRODUCT_ID =1;
-	private final static int MST_MODEL_ID =1;
-	
-	private final static int validProblemsId[]= {1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,19,20,22,24,26,27,28,29};
+	private final static int MST_SERVICE_LOCATION_ID = 0;
+	private final static int MST_PLATFORM_ID = 2;
+	private final static int MST_WARRANTY_STATUS_ID = 1;
+	private final static int MST_OEM_ID = 1;
+	private final static int PRODUCT_ID = 1;
+	private final static int MST_MODEL_ID = 1;
+
+	private final static int validProblemsId[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 19, 20, 22, 24,
+			26, 27, 28, 29 };
 
 	private FakerDataGenerator() {
 
@@ -35,42 +36,52 @@ public class FakerDataGenerator {
 		CustomerAddress customerAddress = generateFakeCustomerAddressData();
 		CustomerProduct customerProduct = generateFakeCustomerProductData();
 		List<Problems> problemList = generateFakeProblemListData();
-		CreateJobPayload payload= new CreateJobPayload(MST_SERVICE_LOCATION_ID, MST_PLATFORM_ID, MST_WARRANTY_STATUS_ID, MST_OEM_ID, customer, customerAddress, customerProduct, problemList);
+		CreateJobPayload payload = new CreateJobPayload(MST_SERVICE_LOCATION_ID, MST_PLATFORM_ID,
+				MST_WARRANTY_STATUS_ID, MST_OEM_ID, customer, customerAddress, customerProduct, problemList);
 		return payload;
 	}
-	
+
 	public static Iterator<CreateJobPayload> generateFakeCreateJobData(int count) {
 		List<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
-		for(int i =1 ; i<=count; i++) {
-		
-		Customer customer = generateFakeCustomerData();
-		CustomerAddress customerAddress = generateFakeCustomerAddressData();
-		CustomerProduct customerProduct = generateFakeCustomerProductData();
-		List<Problems> problemList = generateFakeProblemListData();
-		CreateJobPayload payload= new CreateJobPayload(MST_SERVICE_LOCATION_ID, MST_PLATFORM_ID, MST_WARRANTY_STATUS_ID, MST_OEM_ID, customer, customerAddress, customerProduct, problemList);
-		payloadList.add(payload);
+		for (int i = 1; i <= count; i++) {
+
+			Customer customer = generateFakeCustomerData();
+			CustomerAddress customerAddress = generateFakeCustomerAddressData();
+			CustomerProduct customerProduct = generateFakeCustomerProductData();
+			List<Problems> problemList = generateFakeProblemListData();
+			CreateJobPayload payload = new CreateJobPayload(MST_SERVICE_LOCATION_ID, MST_PLATFORM_ID,
+					MST_WARRANTY_STATUS_ID, MST_OEM_ID, customer, customerAddress, customerProduct, problemList);
+			payloadList.add(payload);
 		}
 		return payloadList.iterator();
 	}
 
 	private static List<Problems> generateFakeProblemListData() {
-		int randomIndex = RANDOM.nextInt(validProblemsId.length);
-		String remark = faker.lorem().sentence(5);
-		
-		Problems problems = new Problems(validProblemsId[randomIndex], remark);
-		//System.out.println(problems);
-		
+		int count = RANDOM.nextInt(3) + 1;
+		int randomIndex;
+		String remark;
+		Problems problems;
 		List<Problems> problemList = new ArrayList<Problems>();
-		problemList.add(problems);
+
+		for (int i = 1; i <= count; i++) {
+
+			// Generating random problem ID and adding it to the list
+			randomIndex = RANDOM.nextInt(validProblemsId.length);
+			remark = faker.lorem().sentence(5);
+
+			problems = new Problems(validProblemsId[randomIndex], remark);
+			problemList.add(problems);
+		}
 		return problemList;
 	}
 
 	private static CustomerProduct generateFakeCustomerProductData() {
-		String dop= DateTimeUtil.getTimeWithDaysAgo(10);
+		String dop = DateTimeUtil.getTimeWithDaysAgo(10);
 		String imeiSerialNumber = faker.numerify("##############");
 		String popurl = faker.internet().url();
-		
-		CustomerProduct customerProduct = new CustomerProduct(dop, imeiSerialNumber, imeiSerialNumber, imeiSerialNumber, popurl, PRODUCT_ID, MST_MODEL_ID);
+
+		CustomerProduct customerProduct = new CustomerProduct(dop, imeiSerialNumber, imeiSerialNumber, imeiSerialNumber,
+				popurl, PRODUCT_ID, MST_MODEL_ID);
 		return customerProduct;
 	}
 
