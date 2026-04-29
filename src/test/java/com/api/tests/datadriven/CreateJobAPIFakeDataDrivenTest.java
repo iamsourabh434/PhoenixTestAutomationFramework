@@ -11,14 +11,14 @@ import com.api.utils.SpecUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
-public class CreateJobAPIDataDrivenTest {
+public class CreateJobAPIFakeDataDrivenTest {
 	
 	
 	
 	
-	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","dataDriven","csv"},
+	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","dataDriven","faker"},
 			dataProviderClass= com.dataproviders.DataProviderUtils.class,
-			dataProvider ="CreateJobAPIDataProvider"
+			dataProvider ="createJobAPIFakerDataProvider"
 			)
 	public void createJobAPITest(CreateJobPayload createJobPayload){
 		
