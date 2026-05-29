@@ -15,19 +15,18 @@ import com.dataproviders.api.bean.UserBean;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
-public class loginAPIDataDrivenTest {
+public class loginAPIJSONDataDrivenTest {
 
 	@Test(description = "Verify login API is working for user FD", groups = { "api", "regression",
-			"dataDriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIDataProvider" // name
+			"dataDriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIJsonDataProvider") // name
 																																	// of
 																																	// DP
 																																	// from
 																																	// DataProviderUtils.class
-	)
 
-	public void loginTest(UserBean userBean) {
+	public void loginTest(UserCredentials userCredentials) {
 
-		given().spec(SpecUtil.requestSpec(userBean)).when().post("login").then().spec(SpecUtil.responseSpec_ok())
+		given().spec(SpecUtil.requestSpec(userCredentials)).when().post("login").then().spec(SpecUtil.responseSpec_ok())
 				.body("message", equalTo("Success")).and()
 				.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response_schema/LoginResponseSchema.json"));
 
