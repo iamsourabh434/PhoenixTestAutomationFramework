@@ -57,12 +57,13 @@ public class ExcelReaderUtil2 {
 		UserCredentials userCredentials;
 		ArrayList<UserCredentials> userList = new ArrayList<UserCredentials>();
 		
-		for(int rowIndex = 0 ; rowIndex<=lastRowIndex; rowIndex++) {
+		for(int rowIndex = 1 ; rowIndex<=lastRowIndex; rowIndex++) {
 			rowData = mySheet.getRow(rowIndex);
-			userCredentials = new UserCredentials(rowData.getCell(userNameIndex).toString(), rowData.getCell(passwordIndex).toString());
+			userCredentials = new UserCredentials(rowData.getCell(userNameIndex).toString(),
+					rowData.getCell(passwordIndex).toString());
 			userList.add(userCredentials);
 		}
-		System.out.println(userList);
+		
 		return userList.iterator();
 
 	}

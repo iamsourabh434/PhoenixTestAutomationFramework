@@ -18,11 +18,7 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 public class loginAPIExcelDataDrivenTest {
 
 	@Test(description = "Verify login API is working for user FD", groups = { "api", "regression",
-			"dataDriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIExcelDataProvider") // name
-																																	// of
-																																	// DP
-																																	// from
-																																	// DataProviderUtils.class
+			"dataDriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "LoginAPIExcelDataProvider")
 
 	public void loginTest(UserCredentials userCredentials) {
 
