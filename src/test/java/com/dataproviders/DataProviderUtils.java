@@ -55,8 +55,8 @@ public class DataProviderUtils {
 		return JsonReaderUtil.loadJSON("testData/CreateJobAPIData.json", CreateJobPayload[].class);
 	}
 	@DataProvider(name = "LoginAPIExcelDataProvider", parallel = true)
-	public static Iterator<UserCredentials> LoginAPIExcelDataProvider() {
-		return ExcelReaderUtil2.loadTestData();
+	public static Iterator<UserBean> LoginAPIExcelDataProvider() {
+		return ExcelReaderUtil2.loadTestData("LoginTestData",UserBean.class);
 	}
 
 }
