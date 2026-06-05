@@ -11,7 +11,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DatabaseManger {
 
 	private static final String DB_URL = ConfigManager.getProperty("DB_URL");
-	private static final String DB_USER_NAME = ConfigManager.getProperty("DB_USER_NAME");
+	private static final String DB_USERNAME = ConfigManager.getProperty("DB_USERNAME");
 	private static final String DB_PASSWORD = ConfigManager.getProperty("DB_PASSWORD");
 	private static final int MAXIMUM_POOL_SIZE=Integer.parseInt(ConfigManager.getProperty("MAXIMUM_POOL_SIZE"));
 	private static final int MINIMUM_IDLE_COUNT=Integer.parseInt(ConfigManager.getProperty("MINIMUM_IDLE_COUNT"));
@@ -32,7 +32,7 @@ public class DatabaseManger {
 				if (hikariDataSource == null) {
 					HikariConfig hikariConfig = new HikariConfig();
 					hikariConfig.setJdbcUrl(DB_URL);
-					hikariConfig.setUsername(DB_USER_NAME);
+					hikariConfig.setUsername(DB_USERNAME);
 					hikariConfig.setPassword(DB_PASSWORD);
 					hikariConfig.setMaximumPoolSize(MAXIMUM_POOL_SIZE);
 					hikariConfig.setMinimumIdle(MINIMUM_IDLE_COUNT);
