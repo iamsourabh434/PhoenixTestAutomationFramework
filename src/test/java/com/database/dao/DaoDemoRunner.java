@@ -16,7 +16,7 @@ public class DaoDemoRunner {
 			CreateJobPayload payload = CreateJobBeanMapper.mapper(createJobBean);
 			payloadList.add(payload);
 		}
-		System.out.println("********************---**********");
+		System.out.println("********************---********");
 		for(CreateJobPayload payload : payloadList) {
 			System.out.println(payload);
 		}
