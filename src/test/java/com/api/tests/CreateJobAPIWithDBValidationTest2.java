@@ -29,9 +29,11 @@ import com.api.utils.SpecUtil;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.MapJobProblemModel;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
@@ -47,10 +49,10 @@ public class CreateJobAPIWithDBValidationTest2 {
 	public void setup() {
 	
 	// created the createJobpayload Object
-			customer = new Customer("Rey", "Bond", "9545712549", "", "Bonds@gmail.com", "");
+			customer = new Customer("Rey", "Mond", "9545712549", "", "Monds@gmail.com", "");
 			customerAddress = new CustomerAddress("877", "Tron", "BakerSt", "pizzahuss", "Tune", "411014", "India", "MH");
-			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "25412491258619",
-					"25412491258619", "25412491258619", DateTimeUtil.getTimeWithDaysAgo(5), 
+			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "25412491253219",
+					"25412491253219", "25412491253219", DateTimeUtil.getTimeWithDaysAgo(5), 
 					Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 			Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
 			List<Problems> problemList = new ArrayList<Problems>();
@@ -103,6 +105,12 @@ public class CreateJobAPIWithDBValidationTest2 {
 		Assert.assertEquals(customerAddressFromDB.getPincode(),customerAddress.pincode());
 		Assert.assertEquals(customerAddressFromDB.getCountry(),customerAddress.country());
 		Assert.assertEquals(customerAddressFromDB.getState(),customerAddress.state());
+		
+		int tr_job_head_id = createJobResponseModel.getData().getId();
+		MapJobProblemModel jobDataFromDB = MapJobProblemDao.getProblemDetails(tr_job_head_id);
+		
+		Assert.assertEquals(jobDataFromDB.getMst_problem_id(), creaetJobPayload.problems().get(0).id());
+		Assert.assertEquals(jobDataFromDB.getRemark(), creaetJobPayload.problems().get(0).remark());
 
 		int ProductId = createJobResponseModel.getData().getTr_customer_product_id();
 		CustomerProductDBModel customerProductFromDB =CustomerProductDao.getProductInfoFromDB(ProductId);

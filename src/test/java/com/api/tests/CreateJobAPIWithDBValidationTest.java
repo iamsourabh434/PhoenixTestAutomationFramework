@@ -28,9 +28,11 @@ import com.api.utils.SpecUtil;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.MapJobProblemModel;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
@@ -48,7 +50,8 @@ public class CreateJobAPIWithDBValidationTest {
 	// created the createJobpayload Object
 			customer = new Customer("Shane", "Bond", "9545712549", "", "Bonds@gmail.com", "");
 			customerAddress = new CustomerAddress("877", "Tron", "BakerSt", "pizzahuss", "Tune", "411014", "India", "MH");
-			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "25412491258421", "25412491258421", "25412491258421", DateTimeUtil.getTimeWithDaysAgo(5), 
+			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "25412491258487",
+					"25412491258487", "25412491258487", DateTimeUtil.getTimeWithDaysAgo(5), 
 					Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 			Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
 			List<Problems> problemList = new ArrayList<Problems>();
@@ -101,9 +104,16 @@ public class CreateJobAPIWithDBValidationTest {
 		Assert.assertEquals(customerAddressFromDB.getCountry(),customerAddress.country());
 		Assert.assertEquals(customerAddressFromDB.getState(),customerAddress.state());
 
+		
+		
+		int tr_job_head_id = response.then().extract().body().jsonPath().getInt("data.id");
+		MapJobProblemModel jobDataFromDB = MapJobProblemDao.getProblemDetails(tr_job_head_id);
+		
+		Assert.assertEquals(jobDataFromDB.getMst_problem_id(), creaetJobPayload.problems().get(0).id());
+		Assert.assertEquals(jobDataFromDB.getRemark(), creaetJobPayload.problems().get(0).remark());
+		
 		int ProductId = response.then().extract().body().jsonPath().getInt("data.tr_customer_product_id");
 		CustomerProductDBModel customerProductFromDB =CustomerProductDao.getProductInfoFromDB(ProductId);
-		
 		
 		Assert.assertEquals(customerProductFromDB.getImei1(), customerProduct.imei1());
 		Assert.assertEquals(customerProductFromDB.getImei2(), customerProduct.imei2());
