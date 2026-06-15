@@ -12,5 +12,5 @@ public class MapJobProblemModel {
 	private int tr_job_head_id;
 	private int mst_problem_id;
 	private String remark;
-
+//
 }

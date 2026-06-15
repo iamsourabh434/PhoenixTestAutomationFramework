@@ -122,7 +122,7 @@ public class CreateJobAPIWithDBValidationTest2 {
 		Assert.assertEquals(customerProductFromDB.getDop(), customerProduct.dop());
 		Assert.assertEquals(customerProductFromDB.getPopurl(), customerProduct.popurl());
 		Assert.assertEquals(customerProductFromDB.getSerial_number(), customerProduct.serial_number());
-
+//
 		
 
 	}
