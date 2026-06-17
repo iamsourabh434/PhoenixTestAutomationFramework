@@ -51,8 +51,8 @@ public class CreateJobAPIWithDBValidationTest {
 	// created the createJobpayload Object
 			customer = new Customer("Rocky", "Bolevia", "9545712549", "", "Bolevia@gmail.com", "");
 			customerAddress = new CustomerAddress("977", "Tron", "BakerSt", "pizzahuss", "Tune", "411014", "India", "MH");
-			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "94612491258487",
-					"94612491258487", "94612491258487", DateTimeUtil.getTimeWithDaysAgo(5), 
+			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "94612491258287",
+					"94612491258287", "94612491258287", DateTimeUtil.getTimeWithDaysAgo(5), 
 					Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 			Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
 			List<Problems> problemList = new ArrayList<Problems>();
