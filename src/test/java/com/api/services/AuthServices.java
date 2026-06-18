@@ -9,9 +9,9 @@ import io.restassured.response.Response;
 
 public class AuthServices {
 	
-	private static final String LOGIN_ENDPOINT="login";
+	private static final String LOGIN_ENDPOINT="/login";
 	
-	public Response login(UserCredentials userCredentials) {
+	public Response login(Object userCredentials) {
 		Response response = given()
 		.spec(SpecUtil.requestSpec(userCredentials))
 	.when()

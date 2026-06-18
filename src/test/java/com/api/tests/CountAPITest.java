@@ -1,26 +1,36 @@
 package com.api.tests;
 
-import static io.restassured.RestAssured.*;
+import static com.api.constant.Roles.FD;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.blankOrNullString;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 
-import static org.hamcrest.Matchers.*;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.api.constant.Roles;
-import com.api.utils.AuthTokenProvider;
-import com.api.utils.ConfigManager;
+import com.api.services.DashboardService;
 import com.api.utils.SpecUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class CountAPITest {
 	
+	private DashboardService dashboardService;
+	
+	@BeforeMethod(description = "setting DashBoard Service instance")
+	public void setup() {
+		dashboardService = new DashboardService();
+	}
+	
 	@Test(description="verify if Count api is giving correct response",groups = {"api","regression","smoke"})
 	public void verifyCountAPIResponse() {
 		
-		given()
-		.spec(SpecUtil.requestSpecWithAuth(Roles.FD))
-		.when()
-		.get("/dashboard/count")
+		dashboardService.count(FD)
 		.then()
 		.spec(SpecUtil.responseSpec_ok())
 		.body("message",equalTo("Success"))
@@ -35,10 +45,7 @@ public class CountAPITest {
 	}
 	@Test(description="verify if count API is giving correct status code for invalid token",groups = {"api","negative","regression","smoke"})
 	public void countAPIRequest_MissingAuthToken() {
-		given()
-		.spec(SpecUtil.requestSpec())
-		.when()
-		.get("/dashboard/count")
+		dashboardService.count(FD)
 		.then()
 		.spec(SpecUtil.responseSpec_text(401));
  
