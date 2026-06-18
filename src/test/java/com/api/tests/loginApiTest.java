@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.request.model.UserCredentials;
+import com.api.services.AuthServices;
 import com.api.utils.SpecUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -17,10 +18,12 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 public class loginApiTest {
 	
 	private UserCredentials userCredentials;
+	private AuthServices authServices;
 	
 	@BeforeMethod(description="create payload for the login API")
 	public void setup() {
 		userCredentials = new UserCredentials("iamfd", "password");
+		authServices= new AuthServices();
 	}
 	
 	
@@ -28,10 +31,7 @@ public class loginApiTest {
 	public void loginTest() throws IOException {
 		
 		
-		given()
-			.spec(SpecUtil.requestSpec(userCredentials))
-		.when()
-			.post("login")
+		authServices.login(userCredentials)
 		.then()
 			.spec(SpecUtil.responseSpec_ok())
 			.body("message", equalTo("Success"))
