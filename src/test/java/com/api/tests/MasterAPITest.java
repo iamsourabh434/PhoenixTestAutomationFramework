@@ -57,6 +57,7 @@ public class MasterAPITest {
 		.post("master")
 		.then()
 		.spec(SpecUtil.responseSpec_text(401));
+		
 	}
 
 }

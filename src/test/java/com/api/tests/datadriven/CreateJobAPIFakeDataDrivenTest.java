@@ -40,6 +40,7 @@ public class CreateJobAPIFakeDataDrivenTest {
 		.body("message", Matchers.equalTo("Job created successfully. "))
 		.body("data.mst_service_location_id", Matchers.equalTo(1))
 		.body("data.job_number", Matchers.startsWith("JOB_"));
+		
 		}
 
 }
