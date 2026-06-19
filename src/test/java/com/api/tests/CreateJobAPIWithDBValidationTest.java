@@ -23,6 +23,7 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.services.JobService;
 import com.api.utils.DateTimeUtil;
 import com.api.utils.SpecUtil;
 import com.database.dao.CustomerAddressDao;
@@ -45,30 +46,30 @@ public class CreateJobAPIWithDBValidationTest {
 	private Customer customer;
 	private CustomerAddress customerAddress ;
 	private CustomerProduct customerProduct;
+	private JobService jobService;
 	
-	@BeforeMethod(description="Creating createJob api payload")
+	@BeforeMethod(description="Creating createJob api payload and instantiating the JobService")
 	public void setup() {	
 	// created the createJobpayload Object
 			customer = new Customer("Rocky", "Bolevia", "9545712549", "", "Bolevia@gmail.com", "");
 			customerAddress = new CustomerAddress("977", "Tron", "BakerSt", "pizzahuss", "Tune", "411014", "India", "MH");
-			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "94612491258287",
-					"94612491258287", "94612491258287", DateTimeUtil.getTimeWithDaysAgo(5), 
+			customerProduct = new CustomerProduct(DateTimeUtil.getTimeWithDaysAgo(5), "92612491258287",
+					"92612491258287", "92612491258287", DateTimeUtil.getTimeWithDaysAgo(5), 
 					Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 			Problems problems = new Problems(Problem.OVERHEATING.getCode(), "Over Heating");
 			List<Problems> problemList = new ArrayList<Problems>();
 			problemList.add(problems);
 			
 			creaetJobPayload = new CreateJobPayload(ServiceLocation.Service_Location_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
+			jobService = new JobService();
 	}
+	
 	
 	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","smoke"})
 	public void createJobAPITest(){
 		
 		
-		Response response =given()
-		.spec(SpecUtil.requestSpecWithAuth(Roles.FD ,creaetJobPayload))
-		.when()
-		.post("/job/create")
+		Response response =jobService.createJob(Roles.FD, creaetJobPayload)
 		.then()
 		.statusCode(200)
 		.log().all()
@@ -128,8 +129,6 @@ public class CreateJobAPIWithDBValidationTest {
 		Assert.assertEquals(customerProductFromDB.getDop(), customerProduct.dop());
 		Assert.assertEquals(customerProductFromDB.getPopurl(), customerProduct.popurl());
 		Assert.assertEquals(customerProductFromDB.getSerial_number(), customerProduct.serial_number());
-
-		
 
 	}
 

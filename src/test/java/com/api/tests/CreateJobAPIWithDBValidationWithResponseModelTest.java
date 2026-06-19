@@ -24,6 +24,7 @@ import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.api.response.model.CreateJobResponseModel;
+import com.api.services.JobService;
 import com.api.utils.DateTimeUtil;
 import com.api.utils.SpecUtil;
 import com.database.dao.CustomerAddressDao;
@@ -46,8 +47,9 @@ public class CreateJobAPIWithDBValidationWithResponseModelTest {
 	private Customer customer;
 	private CustomerAddress customerAddress ;
 	private CustomerProduct customerProduct;
+	private JobService jobService;
 	
-	@BeforeMethod(description="Creating createJob api payload")
+	@BeforeMethod(description="Creating createJob api payload and instantiating the JobService")
 	public void setup() {
 	
 	// created the createJobpayload Object
@@ -61,16 +63,14 @@ public class CreateJobAPIWithDBValidationWithResponseModelTest {
 			problemList.add(problems);
 			
 			creaetJobPayload = new CreateJobPayload(ServiceLocation.Service_Location_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
+			jobService = new JobService();
 	}
 	
 	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","smoke"})
 	public void createJobAPITest(){
 		
 		
-		CreateJobResponseModel createJobResponseModel =given()
-		.spec(SpecUtil.requestSpecWithAuth(Roles.FD ,creaetJobPayload))
-		.when()
-		.post("/job/create")
+		CreateJobResponseModel createJobResponseModel = jobService.createJob(Roles.FD, creaetJobPayload)
 		.then()
 		.statusCode(200)
 		.log().all()
@@ -131,8 +131,6 @@ public class CreateJobAPIWithDBValidationWithResponseModelTest {
 		Assert.assertEquals(customerProductFromDB.getDop(), customerProduct.dop());
 		Assert.assertEquals(customerProductFromDB.getPopurl(), customerProduct.popurl());
 		Assert.assertEquals(customerProductFromDB.getSerial_number(), customerProduct.serial_number());
-
-		
 
 	}
 
