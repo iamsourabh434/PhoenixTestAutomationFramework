@@ -1,28 +1,35 @@
 package com.api.tests;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.notNullValue;
 
-import static org.hamcrest.Matchers.*;
-
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constant.Roles;
-import com.api.utils.AuthTokenProvider;
-import com.api.utils.ConfigManager;
+import com.api.services.MasterService;
 import com.api.utils.SpecUtil;
-
+//import static com.api.constant.Roles.FD;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class MasterAPITest {
+	
+	private MasterService masterService;
+	
+	@BeforeMethod(description="setting MasterService instance")
+	public void setup() {
+	masterService = new MasterService();
+	}
 	
 	@Test(description="verify if Master API is giving correct response",groups = {"api","regression","smoke"})
 	
 	public void masterAPITest() {
 		
-		given()
-		.spec(SpecUtil.requestSpecWithAuth(Roles.FD))
-		.when()
-		.post("master")
+		masterService.master(Roles.FD)
 		.then()
 		.log().all()
 		.spec(SpecUtil.responseSpec_ok())

@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import com.api.constant.Roles;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
+import com.api.services.JobService;
 import com.api.utils.FakerDataGenerator;
 import com.api.utils.SpecUtil;
 import com.database.dao.CustomerAddressDao;
@@ -24,24 +25,22 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 public class CreateJobAPITestWithFakeData {
 	
 	private CreateJobPayload createJobPayload;
-	
+	private JobService jobService;
 	private final static String COUNTRY = "India";
 	
-	@BeforeMethod(description="Creating createJob api payload")
+	@BeforeMethod(description="Creating createJob api payload and instantiating the JobService")
 	public void setup() {
 	
 	// created the createJobpayload Object
 		createJobPayload= FakerDataGenerator.generateFakeCreateJobData();
+		jobService = new JobService();
 	}
 	
 	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","smoke"})
 	public void createJobAPITest(){
 		
 		
-		int customerId=given()
-		.spec(SpecUtil.requestSpecWithAuth(Roles.FD ,createJobPayload))
-		.when()
-		.post("/job/create")
+		int customerId=jobService.createJob(Roles.FD, createJobPayload)
 		.then()
 		//.statusCode(200)
 		.spec(SpecUtil.responseSpec_ok())
