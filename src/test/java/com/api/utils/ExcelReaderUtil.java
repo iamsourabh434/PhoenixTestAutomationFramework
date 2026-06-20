@@ -40,6 +40,5 @@ public class ExcelReaderUtil {
 		LOGGER.info("covverting the XSSFSheet {} to POJO class type {}",sheetName,clazz);
 		List<T> dataList = Poiji.fromExcel(mySheet, clazz);
 		return dataList.iterator();
-
 	}
 }

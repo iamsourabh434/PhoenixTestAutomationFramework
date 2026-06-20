@@ -20,7 +20,6 @@ public class JobService {
 	private static final Logger LOGGER = LogManager.getLogger(JobService.class);
 
 	
-	
 	public Response createJob(Roles role, CreateJobPayload createJobPayload) {
 		LOGGER.info("Making request to {} with the role {} and the payload {}",CREATE_JOB_ENDPOINT,role,createJobPayload);
 		return given()

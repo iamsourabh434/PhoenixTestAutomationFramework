@@ -40,5 +40,4 @@ public class JsonReaderUtil {
 		return list.iterator();
 
 	}
-
 }

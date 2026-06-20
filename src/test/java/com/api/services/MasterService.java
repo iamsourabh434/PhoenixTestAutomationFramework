@@ -24,5 +24,4 @@ public class MasterService {
 		.when()
 		.post(MASTER_ENDPOINT);
 	}
-
 }

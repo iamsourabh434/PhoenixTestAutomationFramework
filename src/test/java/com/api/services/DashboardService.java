@@ -17,7 +17,6 @@ public class DashboardService {
 	
 	private static final Logger LOGGER = LogManager.getLogger(DashboardService.class);
 
-
 	
 	public Response count(Roles role) {
 		LOGGER.info("Making request to the {} for the role {}",COUNT_ENDPOINT, role);

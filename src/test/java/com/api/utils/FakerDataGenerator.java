@@ -119,5 +119,4 @@ public class FakerDataGenerator {
 		System.out.println(customer);
 		return customer;
 	}
-
 }

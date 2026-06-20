@@ -16,7 +16,6 @@ import com.dataproviders.api.bean.CreateJobBean;
 public class CreateJobBeanMapper {
 	
 	private static final Logger LOGGER = LogManager.getLogger(CreateJobBeanMapper.class);
-
 	
 	//we will given the bean  and it will create the payload for CreateJobAPI. Util class ahe
 	

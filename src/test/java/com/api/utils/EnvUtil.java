@@ -10,7 +10,6 @@ public class EnvUtil {
 	private static Dotenv dotenv;
 	private static final Logger LOGGER = LogManager.getLogger(EnvUtil.class);
 
-
 	static {
 		LOGGER.info("Loading the .env file....");
 		dotenv = Dotenv.load();

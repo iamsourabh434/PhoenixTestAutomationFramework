@@ -16,7 +16,6 @@ public class UserService {
 	private static final String USERDETAILS_ENDPOINT="/userdetails";
 	private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
-	
 	public Response userDetails(Roles role) {
 		LOGGER.info("making request to {} for the role {}",USERDETAILS_ENDPOINT,role);
 

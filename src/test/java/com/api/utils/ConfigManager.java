@@ -18,7 +18,7 @@ public class ConfigManager {
 	private ConfigManager() {
 
 	}
-
+	
 	static {
 		// operation of loading the property file in the memory
 		// static block executed only once during class loading time

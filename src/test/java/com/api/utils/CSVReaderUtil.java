@@ -18,7 +18,7 @@ public class CSVReaderUtil {
 	
 	private static final Logger LOGGER = LogManager.getLogger(CSVReaderUtil.class);
 
-	
+
 	private CSVReaderUtil() {
 		
 	}

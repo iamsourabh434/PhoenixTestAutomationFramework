@@ -70,5 +70,4 @@ public class AuthTokenProvider {
 	tokenCache.put(role, token);
 	return token;
 	}
-
 }
