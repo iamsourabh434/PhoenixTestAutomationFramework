@@ -10,4 +10,5 @@
 			<appenderRef ref="Console"></appenderRef>
 		</root>
 	</loggers>
+	
 </Configuration>
