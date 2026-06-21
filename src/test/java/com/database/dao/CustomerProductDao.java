@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DatabaseManger;
 import com.database.model.CustomerProductDBModel;
 
 public class CustomerProductDao {
-	
+	private static final Logger LOGGER = LogManager.getLogger(CustomerProductDao.class);
 	private static final String PRODUCT_QUERY="""
 			
 			select * from tr_customer_product where id = ?;
@@ -23,9 +26,11 @@ public class CustomerProductDao {
 	public static CustomerProductDBModel getProductInfoFromDB(int tr_customer_product_id) {
 		CustomerProductDBModel customerProductDBModel = null;
 		try {
+			LOGGER.info("Getting the connection from the Database Manager");
 			Connection conn = DatabaseManger.getConnection();
 			PreparedStatement ps = conn.prepareStatement(PRODUCT_QUERY);
 			ps.setInt(1, tr_customer_product_id);
+			LOGGER.info("Executing the query {} ",PRODUCT_QUERY);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -41,7 +46,7 @@ public class CustomerProductDao {
 			}
 			
 		} catch (SQLException e) {
-			
+			LOGGER.error("Cannot convert resultset to the CustomerProductDBModel bean",e);
 			System.err.println(e.getMessage());
 		}
 		return customerProductDBModel;
