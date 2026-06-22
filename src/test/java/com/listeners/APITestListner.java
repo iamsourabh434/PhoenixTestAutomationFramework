@@ -1,0 +1,40 @@
+package com.listeners;
+
+import java.util.Arrays;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class APITestListner implements ITestListener {
+	private static final Logger LOGGER = LogManager.getLogger(APITestListner.class);
+
+	public void onTestStart(ITestResult result) {
+		LOGGER.info("***************************************************");
+		LOGGER.info("==== Starting the Test {} ====| ", result.getName());
+		LOGGER.info("==== Test class {} ====|", result.getMethod().getTestClass());
+		LOGGER.info("==== Test class {} ====| ", result.getMethod().getDescription());
+		LOGGER.info("==== Groups {} ====|", Arrays.toString(result.getMethod().getGroups()));
+		LOGGER.info("***************************************************");
+	}
+
+	public void onTestSuccess(ITestResult result) {
+		long startTime = result.getStartMillis();
+		long endTime = result.getEndMillis();
+		
+		LOGGER.info("Total time duration {} ms ",(endTime-startTime) );
+		LOGGER.info("==== Test passed !! {} ====| ", result.getName());
+
+	}
+	public void onTestFailure(ITestResult result) {
+				
+		LOGGER.error("==== {} - Test Failed ! ====|",result.getName());
+		LOGGER.error("ERROR message", result.getThrowable().getMessage());
+		LOGGER.error(result.getThrowable());
+	}
+	public void onTestSkipped(ITestResult result) {
+		LOGGER.info("==== {} - Test Skipped ! ====|" , result.getName());
+		LOGGER.error(result.getThrowable());
+	}
+}
