@@ -2,16 +2,21 @@ package com.api.services;
 
 import static io.restassured.RestAssured.given;
 
-import com.api.request.model.UserCredentials;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.utils.SpecUtil;
+import com.dataproviders.api.bean.UserBean;
 
 import io.restassured.response.Response;
 
 public class AuthServices {
 	
 	private static final String LOGIN_ENDPOINT="/login";
+	private static final Logger LOGGER = LogManager.getLogger(AuthServices.class);
 	
 	public Response login(Object userCredentials) {
+		LOGGER.info("making login reqest for the payload {}",((UserBean)userCredentials).getUsername());
 		Response response = given()
 		.spec(SpecUtil.requestSpec(userCredentials))
 	.when()
@@ -20,3 +25,4 @@ public class AuthServices {
 
 	}
 }
+

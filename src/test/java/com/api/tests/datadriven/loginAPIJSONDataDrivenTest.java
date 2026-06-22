@@ -33,7 +33,7 @@ public class loginAPIJSONDataDrivenTest {
 																																	// from
 																																	// DataProviderUtils.class
 
-	public void loginTest(UserCredentials userCredentials) {
+	public void loginTest(UserBean userCredentials) {
 
 		authServices.login(userCredentials)
 		.then()

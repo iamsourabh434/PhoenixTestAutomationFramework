@@ -5,21 +5,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ConfigManager {
 
 	private static Properties prop = new Properties();
 	private static String path = "config/config.properties";
 	private static String env;
+	private static final Logger LOGGER = LogManager.getLogger(ConfigManager.class);
 
 	private ConfigManager() {
 
 	}
-
+	
 	static {
 		// operation of loading the property file in the memory
 		// static block executed only once during class loading time
+		
+		LOGGER.info("Reading environment value pass from terminal");
 		env = System.getProperty("env", "qa");
-		System.out.println("Environment is "+ env);
+		LOGGER.info("Running the test in the environment {}", env);
+		//System.out.println("Environment is "+ env);
 		env = env.toLowerCase().trim();
 		switch (env) {
 
@@ -35,6 +42,7 @@ public class ConfigManager {
 		InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
 		if (input == null) {
+			LOGGER.error("Cannot find the file at the path",path);
 			throw new RuntimeException("Cannot find a file at the path" + path);
 
 		}
@@ -42,8 +50,10 @@ public class ConfigManager {
 		try {
 			prop.load(input);
 		} catch (FileNotFoundException e) {
+			LOGGER.error("Cannot find the file in the path {}",path,e);
 			e.printStackTrace();
 		} catch (IOException e) {
+			LOGGER.error("Something went wrong...please check the file {}",path,e);
 			e.printStackTrace();
 		}
 	}

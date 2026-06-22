@@ -16,9 +16,11 @@ public class UserBean {
 	public UserBean() {
 
 	}
+	
+	
 
 	public UserBean(String username, String password) {
-		super();
+		//super();
 		this.username = username;
 		this.password = password;
 	}
