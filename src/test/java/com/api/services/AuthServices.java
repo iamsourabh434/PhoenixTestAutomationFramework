@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.api.filters.SensitiveDataFilter;
 import com.api.utils.SpecUtil;
 import com.dataproviders.api.bean.UserBean;
 
@@ -18,8 +19,9 @@ public class AuthServices {
 	public Response login(Object userCredentials) {
 		LOGGER.info("making login reqest for the payload {}",((UserBean)userCredentials).getUsername());
 		Response response = given()
+		.filter(new SensitiveDataFilter())		
 		.spec(SpecUtil.requestSpec(userCredentials))
-	.when()
+	    .when()
 		.post(LOGIN_ENDPOINT);
 		return response;
 
