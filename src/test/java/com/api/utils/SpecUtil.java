@@ -41,7 +41,7 @@ public class SpecUtil {
 		.addFilter(new SensitiveDataFilter())
 		.log(LogDetail.URI)
 		.log(LogDetail.METHOD)
-		.log(LogDetail.BODY)
+		//.log(LogDetail.BODY)
 		.log(LogDetail.HEADERS)
 		.build();
 		return requestSpeci;
@@ -81,7 +81,7 @@ public class SpecUtil {
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(200)
 		.expectResponseTime(Matchers.lessThan(2000L))
-		.log(LogDetail.ALL)
+		//.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpeci;
@@ -91,7 +91,7 @@ public class SpecUtil {
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2000L))
-		.log(LogDetail.ALL)
+		//.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpeci;
@@ -101,7 +101,7 @@ public class SpecUtil {
 		
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2000L))
-		.log(LogDetail.ALL)
+		//.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpeci;
