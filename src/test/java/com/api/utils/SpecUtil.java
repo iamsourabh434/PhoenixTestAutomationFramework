@@ -3,6 +3,7 @@ package com.api.utils;
 import org.hamcrest.Matchers;
 
 import com.api.constant.Roles;
+import com.api.filters.SensitiveDataFilter;
 import com.api.request.model.UserCredentials;
 
 import io.restassured.builder.RequestSpecBuilder;
@@ -20,10 +21,11 @@ public class SpecUtil {
 		.setBaseUri(ConfigManager.getProperty("BASE_URI"))
 		.setContentType(ContentType.JSON)
 		.setAccept(ContentType.JSON)
-		.log(LogDetail.URI)
-		.log(LogDetail.METHOD)
-		.log(LogDetail.BODY)
-		.log(LogDetail.HEADERS)
+		.addFilter(new SensitiveDataFilter())
+		//.log(LogDetail.URI)
+		//.log(LogDetail.METHOD)
+		//.log(LogDetail.BODY)
+		//.log(LogDetail.HEADERS)
 		.build();
 		return request;
 				
@@ -37,10 +39,11 @@ public class SpecUtil {
 		.setContentType(ContentType.JSON)
 		.setAccept(ContentType.JSON)
 		.setBody(payload)
-		.log(LogDetail.URI)
-		.log(LogDetail.METHOD)
-		.log(LogDetail.BODY)
-		.log(LogDetail.HEADERS)
+		.addFilter(new SensitiveDataFilter())
+		//.log(LogDetail.URI)
+		//.log(LogDetail.METHOD)
+		//.log(LogDetail.BODY)
+		//.log(LogDetail.HEADERS)
 		.build();
 		return requestSpeci;
 						
@@ -52,10 +55,11 @@ public class SpecUtil {
 				.setContentType(ContentType.JSON)
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
-				.log(LogDetail.URI)
-				.log(LogDetail.METHOD)
-				.log(LogDetail.BODY)
-				.log(LogDetail.HEADERS)
+				.addFilter(new SensitiveDataFilter())
+				//.log(LogDetail.URI)
+				//.log(LogDetail.METHOD)
+				//.log(LogDetail.BODY)
+				//.log(LogDetail.HEADERS)
 				.build();
 				return requestSpeci;
 	}
@@ -66,10 +70,11 @@ public class SpecUtil {
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
 				.setBody(payload)
-				.log(LogDetail.URI)
-				.log(LogDetail.METHOD)
-				.log(LogDetail.BODY)
-				.log(LogDetail.HEADERS)
+				.addFilter(new SensitiveDataFilter())
+				//.log(LogDetail.URI)
+				//.log(LogDetail.METHOD)
+				//.log(LogDetail.BODY)
+				//.log(LogDetail.HEADERS)
 				.build();
 				return requestSpeci;
 	}
@@ -78,8 +83,8 @@ public class SpecUtil {
 		ResponseSpecification responseSpeci =new ResponseSpecBuilder()
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(200)
-		.expectResponseTime(Matchers.lessThan(2000L))
-		.log(LogDetail.ALL)
+		.expectResponseTime(Matchers.lessThan(2000L))	
+		//.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpeci;
@@ -89,7 +94,7 @@ public class SpecUtil {
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2000L))
-		.log(LogDetail.ALL)
+		//.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpeci;
@@ -99,7 +104,7 @@ public class SpecUtil {
 		
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2000L))
-		.log(LogDetail.ALL)
+		//.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpeci;

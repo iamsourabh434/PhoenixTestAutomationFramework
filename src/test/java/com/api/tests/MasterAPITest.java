@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.notNullValue;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.constant.Roles;
@@ -15,7 +16,7 @@ import com.api.services.MasterService;
 import com.api.utils.SpecUtil;
 //import static com.api.constant.Roles.FD;
 import io.restassured.module.jsv.JsonSchemaValidator;
-
+@Listeners(com.listeners.APITestListner.class)
 public class MasterAPITest {
 	
 	private MasterService masterService;
