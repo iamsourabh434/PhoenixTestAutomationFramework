@@ -21,10 +21,11 @@ public class SpecUtil {
 		.setBaseUri(ConfigManager.getProperty("BASE_URI"))
 		.setContentType(ContentType.JSON)
 		.setAccept(ContentType.JSON)
-		.log(LogDetail.URI)
-		.log(LogDetail.METHOD)
-		.log(LogDetail.BODY)
-		.log(LogDetail.HEADERS)
+		.addFilter(new SensitiveDataFilter())
+		//.log(LogDetail.URI)
+		//.log(LogDetail.METHOD)
+		//.log(LogDetail.BODY)
+		//.log(LogDetail.HEADERS)
 		.build();
 		return request;
 				
@@ -39,10 +40,10 @@ public class SpecUtil {
 		.setAccept(ContentType.JSON)
 		.setBody(payload)
 		.addFilter(new SensitiveDataFilter())
-		.log(LogDetail.URI)
-		.log(LogDetail.METHOD)
+		//.log(LogDetail.URI)
+		//.log(LogDetail.METHOD)
 		//.log(LogDetail.BODY)
-		.log(LogDetail.HEADERS)
+		//.log(LogDetail.HEADERS)
 		.build();
 		return requestSpeci;
 						
@@ -54,10 +55,11 @@ public class SpecUtil {
 				.setContentType(ContentType.JSON)
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
-				.log(LogDetail.URI)
-				.log(LogDetail.METHOD)
-				.log(LogDetail.BODY)
-				.log(LogDetail.HEADERS)
+				.addFilter(new SensitiveDataFilter())
+				//.log(LogDetail.URI)
+				//.log(LogDetail.METHOD)
+				//.log(LogDetail.BODY)
+				//.log(LogDetail.HEADERS)
 				.build();
 				return requestSpeci;
 	}
@@ -68,10 +70,11 @@ public class SpecUtil {
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
 				.setBody(payload)
-				.log(LogDetail.URI)
-				.log(LogDetail.METHOD)
-				.log(LogDetail.BODY)
-				.log(LogDetail.HEADERS)
+				.addFilter(new SensitiveDataFilter())
+				//.log(LogDetail.URI)
+				//.log(LogDetail.METHOD)
+				//.log(LogDetail.BODY)
+				//.log(LogDetail.HEADERS)
 				.build();
 				return requestSpeci;
 	}
@@ -80,7 +83,7 @@ public class SpecUtil {
 		ResponseSpecification responseSpeci =new ResponseSpecBuilder()
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(200)
-		.expectResponseTime(Matchers.lessThan(2000L))
+		.expectResponseTime(Matchers.lessThan(2000L))	
 		//.log(LogDetail.ALL)
 		.build();
 		
