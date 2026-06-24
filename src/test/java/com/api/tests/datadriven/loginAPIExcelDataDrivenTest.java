@@ -3,6 +3,7 @@ package com.api.tests.datadriven;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.services.AuthServices;
@@ -10,7 +11,7 @@ import com.api.utils.SpecUtil;
 import com.dataproviders.api.bean.UserBean;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
-
+@Listeners(com.listeners.APITestListner.class)
 public class loginAPIExcelDataDrivenTest {
 	
 	private AuthServices authServices;
