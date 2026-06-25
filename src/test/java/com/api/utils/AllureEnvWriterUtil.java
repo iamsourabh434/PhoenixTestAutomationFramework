@@ -25,6 +25,7 @@ public class AllureEnvWriterUtil {
 		prop.setProperty("Operating_System_Name",(System.getProperty("os.name")));
 		prop.setProperty("Operating_System_Version",(System.getProperty("os.version")));
 		prop.setProperty("Java_Version", System.getProperty("java.version"));
+		prop.setProperty("Project_Name", "Phoenix Test Automation Framework");
 		
 		FileWriter fw;
 		try {
