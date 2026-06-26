@@ -9,8 +9,16 @@ import org.testng.annotations.Test;
 import com.api.services.UserService;
 import com.api.utils.SpecUtil;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.restassured.module.jsv.JsonSchemaValidator;
 @Listeners(com.listeners.APITestListner.class)
+@Epic("User Management")
+@Feature("User Details")
 public class UserDetailsAPITest {
 	
 	private UserService userService;
@@ -19,6 +27,9 @@ public class UserDetailsAPITest {
 	public void setup() {
 		userService = new UserService();
 	}
+	@Story("User details should be shown")
+	@Description("Verify if the the user details API response shown correctly")
+	@Severity(SeverityLevel.CRITICAL)
 	
 	@Test(description="verify if user details API response are shown correctly",groups = {"api","regression","smoke"})
 	public void userDetailsAPITest() throws IOException {
