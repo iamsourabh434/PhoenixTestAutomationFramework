@@ -11,6 +11,8 @@ import com.api.utils.EnvUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import io.qameta.allure.Step;
+
 public class DatabaseManger {
 	private static final Logger LOGGER = LogManager.getLogger(DatabaseManger.class);
 	private static final String DB_URL = EnvUtil.getValue("DB_URL");
@@ -30,7 +32,7 @@ public class DatabaseManger {
 	private DatabaseManger() {
 
 	}
-
+	@Step("Intializing the Database  connection pool")
 	public static void initializePool()  {
 		if (hikariDataSource == null) {
 			LOGGER.warn("Database connection is not available... Creating Hikari data source");
@@ -56,6 +58,7 @@ public class DatabaseManger {
 
 		}
 	}
+	@Step("getting the Database connection")
 	public static Connection getConnection() throws SQLException {
 		Connection connection =null;
 		if(hikariDataSource==null) {

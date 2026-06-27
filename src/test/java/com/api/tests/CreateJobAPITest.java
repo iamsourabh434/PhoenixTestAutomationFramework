@@ -27,9 +27,17 @@ import com.api.services.JobService;
 import com.api.utils.DateTimeUtil;
 import com.api.utils.SpecUtil;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.specification.ResponseSpecification;
 @Listeners(com.listeners.APITestListner.class)
+@Epic("Job Management")
+@Feature("Job Creation")
 public class CreateJobAPITest {
 	
 	private CreateJobPayload createJobPayload;
@@ -52,6 +60,10 @@ public class CreateJobAPITest {
 			createJobPayload = new CreateJobPayload(ServiceLocation.Service_Location_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
 			jobService=new JobService();
 	}
+	
+	@Story("FD user should be able to create a job")
+	@Description("Verify if FD is able to create job api and able to create inwarranty job")
+	@Severity(SeverityLevel.BLOCKER)
 	
 	@Test(description="verify if Create API is able to create inwarranty jobs",groups = {"api","regression","smoke"})
 	public void createJobAPITest(){

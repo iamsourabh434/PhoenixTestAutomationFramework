@@ -17,8 +17,16 @@ import org.testng.annotations.Test;
 import com.api.services.DashboardService;
 import com.api.utils.SpecUtil;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.restassured.module.jsv.JsonSchemaValidator;
 @Listeners(com.listeners.APITestListner.class)
+@Epic("Job Management")
+@Feature("Job Count")
 public class CountAPITest {
 	
 	private DashboardService dashboardService;
@@ -27,6 +35,9 @@ public class CountAPITest {
 	public void setup() {
 		dashboardService = new DashboardService();
 	}
+	@Story("Job count details should be shown")
+	@Description("Verify if the Job count details API response shown correctly ")
+	@Severity(SeverityLevel.CRITICAL)
 	
 	@Test(description="verify if Count api is giving correct response",groups = {"api","regression","smoke"})
 	public void verifyCountAPIResponse() {

@@ -15,8 +15,16 @@ import com.api.services.AuthServices;
 import com.api.utils.SpecUtil;
 import com.dataproviders.api.bean.UserBean;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.restassured.module.jsv.JsonSchemaValidator;
 @Listeners(com.listeners.APITestListner.class)
+@Epic("User Management")
+@Feature("Authentication")
 
 public class loginApiTest {
 	
@@ -30,6 +38,9 @@ public class loginApiTest {
 		authServices= new AuthServices();
 	}
 	
+	@Story("Verify user should be able to login into the system")
+	@Description("verify if FD user is able to login")
+	@Severity(SeverityLevel.BLOCKER)
 	
 	@Test(description ="Verify login API is working for user FD", groups= {"api","regression","smoke"})
 	public void loginTest() throws IOException {
