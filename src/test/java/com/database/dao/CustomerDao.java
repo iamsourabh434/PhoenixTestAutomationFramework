@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import com.database.DatabaseManger;
 import com.database.model.CustomerDBModel;
 
+import io.qameta.allure.Step;
+
 public class CustomerDao {
 // executing the query for the tr_customer table . which will get the information of the customer.
 	private static final Logger LOGGER = LogManager.getLogger(CustomerAddressDao.class);
@@ -20,7 +22,7 @@ public class CustomerDao {
 	private CustomerDao() {
 		
 	}
-
+	@Step("Getting customer information from database for specific customer id")
 	public static CustomerDBModel getCustomerInfo(int customerId) {
 		CustomerDBModel customerDBModel = null;
 		try {
