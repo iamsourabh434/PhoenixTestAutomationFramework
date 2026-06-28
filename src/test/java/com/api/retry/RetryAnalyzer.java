@@ -23,7 +23,6 @@ public class RetryAnalyzer implements IRetryAnalyzer {
 			count++; // Updating the attempts
 			return true;
 		}
-
 		return false;
 	}
 
